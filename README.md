@@ -5,7 +5,7 @@ Some security by obscurity using "port-jumping". A silly PoC to use HOTP to upda
 ![logo](./images/port-jump.png)
 
 > [!WARNING]
-> This is a PoC-scratching-an-itch project. Don't actually use this somewhere important, okay?
+> This is a PoC-scratching-an-itch project. Don't actually use this somewhere important, okay? Nothing beats a firewall actually blocking stuff.
 
 ## introduction
 
