@@ -1,0 +1,15 @@
+[Unit]
+Description=Port Jump
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/port-jump jump
+Restart=on-failure
+User=root
+Group=root
+ExecStop=/bin/kill -s SIGINT $MAINPID
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target
