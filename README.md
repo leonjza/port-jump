@@ -1,6 +1,6 @@
 # port-jump
 
-Some security by obscurity using "port-jumping". A silly PoC to use HOTP to update port numbers to a service as time procresses.
+Some security by obscurity using "port-jumping". A silly PoC to use HOTP to update port numbers to a service as time progresses.
 
 ![logo](./images/port-jump.png)
 
@@ -30,7 +30,7 @@ jumps:
     sharedsecret: HPQY7R45TFSZWTST
 ```
 
-Assuming we're targetting SSH, you can now configure the port by running `port-jump get port` as follows:
+Assuming we're targeting SSH, you can now configure the port by running `port-jump get port` as follows:
 
 ```console
 ssh -p $(port-jump get port -p22) user@10.211.55.6
@@ -76,7 +76,7 @@ A systemd [unit](./port-jump.service) is available that will boot start the `por
 
 ### docker
 
-It's possible to run `port-jump` using Docker. However, its going to require the `--privileged` flag which is generally discoured. However, assuming you trust this code and understand what that flag means, you could get a docker container up and running with:
+It's possible to run `port-jump` using Docker. It’s going to require the `--privileged` flag which is generally discouraged. However, assuming you trust this code and understand what that flag means, you could get a docker container up and running with:
 
 ```console
 # build the container with
@@ -86,7 +86,7 @@ docker build -t portjump:local .
 docker run --rm -it -v /root/.config/port-jump/config.yml:/root/.config/port-jump/config.yml --network host --privileged portjump:local jump
 ```
 
-Note the volume mapping with `-v`. This is where the jump mapping live.s
+Note the volume mapping with `-v`. This is where the jump mapping lives.
 
 ## todo
 
