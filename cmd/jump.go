@@ -74,7 +74,7 @@ var jumpCmd = &cobra.Command{
 					}
 
 					port = newPort
-					if err := firewall.Update(port, j.DstPort); err != nil {
+					if err := firewall.AddOrUpdateRedirect(port, j.DstPort); err != nil {
 						jmpLog.Error().Err(err).Msg("failed to update nftables")
 					}
 

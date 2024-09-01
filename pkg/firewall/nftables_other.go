@@ -6,8 +6,8 @@ import "errors"
 
 var errNotImplemented = errors.New("not implemented for non-linux systems")
 
-// Update updates the firewall using NFTables to redirect traffic from, to.
-func Update(from int, to int) error {
+// AddOrUpdateRedirect updates the firewall using NFTables to redirect traffic from, to.
+func AddOrUpdateRedirect(from int, to int) error {
 	return errNotImplemented
 }
 
