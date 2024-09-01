@@ -4,8 +4,8 @@ import (
 	"os"
 	"os/signal"
 	"port-jump/internal/options"
+	"port-jump/pkg/firewall"
 	"port-jump/pkg/totp"
-	"port-jump/pkg/totp/firewall"
 	"syscall"
 	"time"
 
