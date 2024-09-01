@@ -70,12 +70,13 @@ func (t *Totp) Generate() (int, error) {
 
 // GenerateTCPPort generates a HOTP within the TCP high-port range.
 func (t *Totp) GenerateTCPPort() (int, error) {
-	code, err := t.Generate()
+	code, err := t.Code()
 	if err != nil {
-		return 0, nil
+		return 0, err
 	}
 
-	minPort := 1024
-	maxPort := 65535
+	var minPort uint32 = 1024
+	var maxPort uint32 = 65535
+
 	return int(code%(maxPort-minPort+1) + minPort), nil
 }
