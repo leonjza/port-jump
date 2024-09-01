@@ -89,17 +89,51 @@ A systemd [unit](./port-jump.service) is available that will start the `port-jum
 
 ### docker
 
-It's possible to run `port-jump` using Docker. It’s going to require the `--privileged` flag which is generally discouraged. However, assuming you trust this code and understand what that flag means, you could get a docker container up and running with:
+It's possible to run `port-jump` using Docker. It’s going to require the `--privileged` flag which is generally discouraged. However, assuming you trust this code and understand what that flag means, you could get a docker container up and running.
+
+Build it with:
 
 ```console
-# build the container with
 docker build -t portjump:local .
+```
 
-# run with
-docker run --rm -it -v /root/.config/port-jump/config.yml:/root/.config/port-jump/config.yml --network host --privileged portjump:local jump
+Then run it with:
+
+```console
+docker run --rm -it \
+  -v /root/.config/port-jump/config.yml:/root/.config/port-jump/config.yml \
+  --network host \
+  --privileged \
+  portjump:local jump
 ```
 
 Note the volume mapping with `-v`. This is where the jump mapping lives.
+
+## configuration
+
+Configuration for `port-jump` lives in a configuration file. Depending on your Operating System, this may be relative to wherever the Golang [os.UserHomeDir](https://pkg.go.dev/os#UserHomeDir) call resolves to as `$HOME`. i.em, `$HOME/.config/port-jump/config.yml`. Feel free to edit this file manually, or use the `port-jump config` set of commands to perform create, toggle and delete operations on the configuration.
+
+```console
+$ port-jump config
+Work with port-jump configurations
+
+Usage:
+  port-jump config [command]
+
+Available Commands:
+  add         Add a new jump
+  delete      Delete a jump
+  list        List the current jumps
+  toggle      Toggle jump status
+
+Flags:
+  -h, --help   help for config
+
+Global Flags:
+  -D, --debug   debug
+
+Use "port-jump config [command] --help" for more information about a command.
+```
 
 ## todo
 
