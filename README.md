@@ -143,3 +143,4 @@ This is a PoC, but to give you an idea of stuff to do includes:
 - Add some more firewall support. Right now only `nftables` is supported on Linux.
 - IPv6 Suport.
 - Potentially faster interval support <https://infosec.exchange/@singe@chaos.social/113057901149163673>
+- Use names / id's to identify jumps. Right now, it's just a port map, but what if you want more than one service, on the same port but separate keys?
