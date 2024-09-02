@@ -5,7 +5,7 @@ import (
 	"os/signal"
 	"port-jump/internal/options"
 	"port-jump/pkg/firewall"
-	"port-jump/pkg/totp"
+	"port-jump/pkg/hotp"
 	"syscall"
 	"time"
 
@@ -53,7 +53,7 @@ var jumpCmd = &cobra.Command{
 			go func(j *options.PortJump) {
 				jmpLog := log.With().Int("dst", j.DstPort).Bool("enabled", j.Enabled).Logger()
 
-				portGen, err := totp.NewTotp(j.SharedSecret, j.Interval)
+				portGen, err := hotp.NewTotp(j.SharedSecret, j.Interval)
 				if err != nil {
 					jmpLog.Error().Err(err).Msg("failed to get port generator for jump")
 					return

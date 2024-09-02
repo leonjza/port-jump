@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"port-jump/internal/options"
-	"port-jump/pkg/totp"
+	"port-jump/pkg/hotp"
 
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
@@ -35,7 +35,7 @@ var portCmd = &cobra.Command{
 			return
 		}
 
-		totp, err := totp.NewTotp(j.SharedSecret, j.Interval)
+		totp, err := hotp.NewTotp(j.SharedSecret, j.Interval)
 		if err != nil {
 			log.Error().Err(err).Msg("failed to get totp generator handle")
 			return
