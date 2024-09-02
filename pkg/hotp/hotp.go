@@ -10,15 +10,14 @@ import (
 	"time"
 )
 
-// ref: https://datatracker.ietf.org/doc/html/rfc6238
-type Totp struct {
+// ref: https://www.ietf.org/rfc/rfc4226.txt
+type Hotp struct {
 	secret   string
 	interval int64
 }
 
 // NewTotp creates a new Totp struct
-func NewTotp(secret string, interval int64) (*Totp, error) {
-
+func NewTotp(secret string, interval int64) (*Hotp, error) {
 	if secret == "" {
 		return nil, errors.New("secret cannot be empty")
 	}
@@ -27,21 +26,21 @@ func NewTotp(secret string, interval int64) (*Totp, error) {
 		return nil, errors.New("interval cannot be zero")
 	}
 
-	return &Totp{
+	return &Hotp{
 		secret:   secret,
 		interval: interval,
 	}, nil
 }
 
 // Code returns an integer of a calculated HMAC
-func (t *Totp) Code() (uint32, error) {
-	secret := strings.ToUpper(t.secret)
+func (h *Hotp) Code() (uint32, error) {
+	secret := strings.ToUpper(h.secret)
 	key, err := base32.StdEncoding.WithPadding(base32.NoPadding).DecodeString(secret)
 	if err != nil {
 		return 0, err
 	}
 
-	counter := time.Now().Unix() / t.interval
+	counter := time.Now().Unix() / h.interval
 
 	var counterBytes [8]byte
 	binary.BigEndian.PutUint64(counterBytes[:], uint64(counter))
@@ -59,8 +58,8 @@ func (t *Totp) Code() (uint32, error) {
 }
 
 // Generate generates a typical 6-digit HOTP
-func (t *Totp) Generate() (int, error) {
-	code, err := t.Code()
+func (h *Hotp) Generate() (int, error) {
+	code, err := h.Code()
 	if err != nil {
 		return 0, err
 	}
@@ -69,8 +68,8 @@ func (t *Totp) Generate() (int, error) {
 }
 
 // GenerateTCPPort generates a HOTP within the TCP high-port range.
-func (t *Totp) GenerateTCPPort() (int, error) {
-	code, err := t.Code()
+func (h *Hotp) GenerateTCPPort() (int, error) {
+	code, err := h.Code()
 	if err != nil {
 		return 0, err
 	}
